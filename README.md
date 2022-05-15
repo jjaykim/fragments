@@ -30,5 +30,6 @@ By setting [prettierrc](.prettierrc) and [eslintrc](.eslintrc.js), not only do a
 
 > NOTE: The difference between `node` and `nodemon` is that `nodemon` automatically restarts the server whenever all files in `src/**` are updated.
 
-> [Error] > **Situation**: When I run `debug` script in VSCode, my breakpoint does not work.
-> **How to fix** : open `command Palette` (⇧⌘P) under `View` and make sure [Toggle Auto Attach](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_auto-attach) enable. Lastly, re-open your VSCode's Integrated terminal.
+> [Error]
+> - **Situation**: When I run `debug` script in VSCode, my breakpoint does not work.
+> - **How to fix** : open `command Palette` (⇧⌘P) under `View` and make sure [Toggle Auto Attach](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_auto-attach) enable. Lastly, re-open your VSCode's Integrated terminal.
