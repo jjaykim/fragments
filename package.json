@@ -11,5 +11,8 @@
     "url": "git+https://github.com/yourname/fragments.git"
   },
   "author": "Jungjoo Kim",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.6.2"
+  }
 }
