@@ -8,5 +8,9 @@
     "source.fixAll": true
   },
   "files.eol": "\n",
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "markdownlint.config": {
+    "MD028": false,
+    "MD032": false
+  }
 }
