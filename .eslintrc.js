@@ -8,5 +8,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 13,
   },
-  rules: {},
+  rules: {
+    'global-require': 'off',
+    'no-undef': 'off',
+    'func-names': 'off',
+    'arrow-body-style': 'off',
+    'no-use-before-define': 'off',
+  },
 };
