@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 
 // version and author from our package.json file
-const { version, author } = require('../package.json');
+const { version, author, repository } = require('../package.json');
 
 const logger = require('./logger');
 const pino = require('pino-http')({
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
   res.status(200).json({
     status: 'ok',
     author,
-    githubUrl: 'https://github.com/humphd/fragments',
+    githubUrl: repository.url,
     version,
   });
 });
