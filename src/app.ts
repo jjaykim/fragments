@@ -1,22 +1,18 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const compression = require('compression');
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
+import pino from 'pino-http';
 
-// version and author from our package.json file
-const { version, author, repository } = require('../package.json');
+import { version, author, repository } from '../package.json'; // version and author from our package.json file
 
-const logger = require('./logger');
-const pino = require('pino-http')({
-  // Use our default logger instance, which is already configured
-  logger,
-});
+import logger from './logger';
 
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
 
 // Use logging middleware
-app.use(pino);
+app.use(pino(logger)); // Use our default logger instance, which is already configured
 
 // Use security middleware
 app.use(helmet());
@@ -44,7 +40,7 @@ app.get('/', (req, res) => {
 });
 
 // Add 404 middleware to handle any requests for resources that can't be found
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({
     status: 'error',
     error: {
@@ -55,8 +51,7 @@ app.use((req, res) => {
 });
 
 // Add error-handling middleware to deal with anything else
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: any) => {
   // We may already have an error response we can use, but if not, use a generic
   // 500 server error and message.
   const status = err.status || 500;
@@ -77,4 +72,4 @@ app.use((err, req, res, next) => {
 });
 
 // Export our `app` so we can access it in server.js
-module.exports = app;
+export default app;
