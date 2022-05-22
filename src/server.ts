@@ -9,8 +9,8 @@ const port = parseInt((process.env.PORT as string) || '8080', 10);
 // Start a server listening on this port
 // Export our server instance so other parts of our code can access it if necessary.
 export const server = stoppable(
-  app.listen(port, () => {
-    // Log a message that the server has started, and which port it's using.
-    logger.info({ port }, `Server started`);
-  })
+	app.listen(port, () => {
+		// Log a message that the server has started, and which port it's using.
+		logger.info({ port }, `Server started`);
+	})
 );
