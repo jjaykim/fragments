@@ -12,6 +12,10 @@ At root, run npm install
 npm install
 ```
 
+## .env Setting
+
+Please create `.env` file at your root, and make sure fill out your Environment Variables by referring to [env.example](.env.example)
+
 ## Prettier and EsLint Setup
 
 By setting [prettierrc](.prettierrc) and [eslintrc](.eslintrc.js), not only do all codes follow a consistent code style, but they also look for errors or anti-patterns. (you can modify these configurations if you have your own style)
@@ -35,6 +39,3 @@ By setting [prettierrc](.prettierrc) and [eslintrc](.eslintrc.js), not only do a
 > - **Situation**: When I run `debug` script in VSCode, my breakpoint does not work.
 > - **How to fix** : open `command Palette` (⇧⌘P) under `View` and make sure [Toggle Auto Attach](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_auto-attach) enable. Lastly, re-open your VSCode's Integrated terminal.
 
-## .env Setting
-
-Please create `.env` file at your root, and make sure fill out your Environment Variables by referring to [env.example](.env.example)
