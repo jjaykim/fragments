@@ -5,7 +5,7 @@ import compression from 'compression';
 import pino from 'pino-http';
 import passport from 'passport';
 
-import { routes } from './routes';
+import { routes } from './routes/index';
 import logger from './logger';
 import { strategy } from './authorization';
 

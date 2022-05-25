@@ -3,7 +3,7 @@ import express, { Request, Response } from 'express';
 import { version, author, repository } from '../../package.json'; // version and author from our package.json file
 import { authenticate } from '../authorization';
 
-import { apis } from './api';
+import { apis } from './api/index';
 
 // Create a router that we can use to mount our API
 export const routes = express.Router();
