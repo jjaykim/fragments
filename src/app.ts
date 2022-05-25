@@ -43,6 +43,7 @@ app.use((req: Request, res: Response) => {
 });
 
 // Add error-handling middleware to deal with anything else
+// eslint-disable-next-line no-unused-vars
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 	// We may already have an error response we can use, but if not, use a generic
 	// 500 server error and message.

@@ -1,60 +1,59 @@
 {
-  "env": {
-    "commonjs": true,
-    "es2021": true,
-    "node": true
-  },
-  "extends": ["airbnb-base", "prettier"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["@typescript-eslint"],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
-  },
-  "rules": {
-    "global-require": "off",
-    "no-undef": "off",
-    "func-names": "off",
-    "arrow-body-style": "off",
-    "no-use-before-define": "off",
-    "class-methods-use-this": ["off"],
-    "max-classes-per-file": ["off"],
-    "import/prefer-default-export": "off",
-    "no-unused-vars": "off",
+	"env": {
+		"commonjs": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": ["airbnb-base", "prettier"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint"],
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
+		}
+	},
+	"rules": {
+		"global-require": "off",
+		"no-undef": "off",
+		"func-names": "off",
+		"arrow-body-style": "off",
+		"no-use-before-define": "off",
+		"class-methods-use-this": ["off"],
+		"max-classes-per-file": ["off"],
+		"import/prefer-default-export": "off",
 
-    "import/order": [
-      "error",
-      {
-        "newlines-between": "always",
-        "pathGroupsExcludedImportTypes": ["builtin"],
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-          "type"
-        ]
-      }
-    ],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ]
-  }
+		"import/order": [
+			"error",
+			{
+				"newlines-between": "always",
+				"pathGroupsExcludedImportTypes": ["builtin"],
+				"groups": [
+					"builtin",
+					"external",
+					"internal",
+					"parent",
+					"sibling",
+					"index",
+					"object",
+					"type"
+				]
+			}
+		],
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never"
+			}
+		]
+	}
 }
