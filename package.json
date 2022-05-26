@@ -4,8 +4,10 @@
   "version": "0.0.1",
   "description": "Fragments back-end API",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --config .eslintrc.json 'src/**/*.{ts,tsx}'",
+    "test:watch": "jest -c jest.config.ts --runInBand --watch --",
+    "test": "jest -c jest.config.ts --runInBand --",
+    "coverage": "jest -c jest.config.ts --runInBand --coverage",
+    "lint": "eslint --config .eslintrc.json 'src/**/*.{ts,tsx} tests/**/*.{ts,tsx}'",
     "start": "ts-node src/index.ts",
     "dev": "LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
     "debug": "LOG_LEVEL=debug nodemon --watch src --exec node --inspect=0.0.0.0:9229 -r ts-node/register src/index.ts "
@@ -20,6 +22,7 @@
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/jest": "^27.5.1",
     "@types/passport": "^1.0.7",
     "@types/passport-http-bearer": "^1.0.37",
     "@types/stoppable": "^1.1.1",
@@ -29,6 +32,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "jest": "^28.1.0",
     "nodemon": "^2.0.16",
     "prettier": "2.6.2",
     "typescript": "^4.6.4"
@@ -46,6 +50,7 @@
     "pino-http": "^7.0.0",
     "pino-pretty": "^7.6.1",
     "stoppable": "^1.1.0",
+    "ts-jest": "^28.0.3",
     "ts-node": "^10.7.0"
   }
 }
