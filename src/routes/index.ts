@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 
 import { version, author, repository } from '../../package.json'; // version and author from our package.json file
-import { authenticate } from '../authorization';
+import { authenticate } from '../authorization/cognito';
 
 import { apis } from './api/index';
 
@@ -26,5 +26,6 @@ routes.get('/', (req: Request, res: Response) => {
 
 /**
  * Expose all of our API routes on /v1/* to include an API version.
+ * Protect them all so you have to be authenticated in order to access.
  */
 routes.use(`/v1`, authenticate(), apis);

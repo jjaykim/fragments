@@ -7,7 +7,7 @@ import passport from 'passport';
 
 import { routes } from './routes/index';
 import logger from './logger';
-import { strategy } from './authorization';
+import { strategy } from './authorization/cognito';
 
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
