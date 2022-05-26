@@ -1,1 +1,1 @@
-declare module 'http-auth-passport';
+declare module '../../../node_modules/http-auth-passport';
