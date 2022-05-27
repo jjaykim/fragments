@@ -38,4 +38,3 @@ By setting [prettierrc](.prettierrc) and [eslintrc](.eslintrc.js), not only do a
 >
 > - **Situation**: When I run `debug` script in VSCode, my breakpoint does not work.
 > - **How to fix** : open `command Palette` (⇧⌘P) under `View` and make sure [Toggle Auto Attach](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_auto-attach) enable. Lastly, re-open your VSCode's Integrated terminal.
-
