@@ -7,7 +7,7 @@
     "test:watch": "jest -c jest.config.ts --runInBand --watch --",
     "test": "jest -c jest.config.ts --runInBand --",
     "coverage": "jest -c jest.config.ts --runInBand --coverage",
-    "lint": "eslint --config .eslintrc.json 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
+    "lint": "eslint --config .eslintrc.json 'src/**/*.{ts,tsx,js,jsx}' 'tests/**/*.{ts,tsx,js,jsx}'",
     "start": "ts-node src/index.ts",
     "dev": "LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
     "debug": "LOG_LEVEL=debug nodemon --watch src --exec node --inspect=0.0.0.0:9229 -r ts-node/register src/index.ts "
