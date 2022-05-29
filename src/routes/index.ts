@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 
 import { version, author, repository } from '../../package.json'; // version and author from our package.json file
-import { authenticate } from '../authorization';
+import { authenticate } from '../authorization/cognito';
 
 import { apis } from './api/index';
 
