@@ -5,7 +5,7 @@ import compression from 'compression';
 import pino from 'pino-http';
 import passport from 'passport';
 
-import strategy from './authorization/index';
+import authorization from './authorization';
 import { routes } from './routes/index';
 import logger from './logger';
 
@@ -25,7 +25,7 @@ app.use(cors());
 app.use(compression());
 
 // Set up our passport authorization middleware
-passport.use(strategy().strategy);
+passport.use(authorization().strategy);
 app.use(passport.initialize());
 
 // Define our routes
