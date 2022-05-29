@@ -1,12 +1,17 @@
 import express, { Request, Response } from 'express';
 
 import { version, author, repository } from '../../package.json'; // version and author from our package.json file
-import { authenticate } from '../authorization';
+import authorization from '../authorization';
 
 import { apis } from './api/index';
 
 // Create a router that we can use to mount our API
 export const routes = express.Router();
+
+/**
+ * Expose all of our API routes on /v1/* to include an API version.
+ */
+routes.use(`/v1`, authorization().authenticate(), apis);
 
 // Define a simple health check route. If the server is running
 // we'll respond with a 200 OK.  If not, the server isn't healthy.
@@ -23,8 +28,3 @@ routes.get('/', (req: Request, res: Response) => {
 		version,
 	});
 });
-
-/**
- * Expose all of our API routes on /v1/* to include an API version.
- */
-routes.use(`/v1`, authenticate(), apis);
