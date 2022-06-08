@@ -1,4 +1,5 @@
 /* eslint-disable no-promise-executor-return */
+import { resetFragment } from '../../src/model/data/memory';
 import { Fragment } from '../../src/model/fragment';
 
 // Wait for a certain number of ms. Returns a Promise.
@@ -21,6 +22,10 @@ const validTypes = [
   `image/gif`,
   */
 ];
+
+beforeEach(() => {
+	resetFragment();
+});
 
 describe('Fragment class', () => {
 	test('common formats are supported', () => {

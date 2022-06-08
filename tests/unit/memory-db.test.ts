@@ -1,5 +1,5 @@
 // Fix this path to point to your project's `memory-db.js` source file
-import { MemoryDB } from '../../src/model/data/memory/memory-db';
+const MemoryDB = require('../../src/model/data/memory/memory-db');
 
 describe('memory-db', () => {
 	let db;
@@ -42,6 +42,16 @@ describe('memory-db', () => {
 		const results = await db.query('a');
 		expect(Array.isArray(results)).toBe(true);
 		expect(results).toEqual([{ value: 1 }, { value: 2 }, { value: 3 }]);
+	});
+
+	test('query() returns empty array', async () => {
+		await db.put('b', 'a', { value: 1 });
+		await db.put('b', 'b', { value: 2 });
+		await db.put('b', 'c', { value: 3 });
+
+		const results = await db.query('a');
+		expect(Array.isArray(results)).toBe(true);
+		expect(results).toEqual([]);
 	});
 
 	test('del() removes value put() into db', async () => {

@@ -9,6 +9,10 @@ export class MemoryDB {
 		this.db = {};
 	}
 
+	clear() {
+		this.db = {};
+	}
+
 	/**
 	 * Gets a value for the given primaryKey and secondaryKey
 	 * @param {string} primaryKey
@@ -62,7 +66,7 @@ export class MemoryDB {
 		// No matter what, we always return an array (even if empty)
 		const { db } = this;
 		const values = db[primaryKey] && Object.values(db[primaryKey]);
-		return Promise.resolve([].concat(values));
+		return Promise.resolve(values);
 	}
 
 	/**

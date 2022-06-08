@@ -6,6 +6,11 @@ import { MemoryDB } from './memory-db';
 const data = new MemoryDB();
 const metadata = new MemoryDB();
 
+export const resetFragment = () => {
+	metadata.clear();
+	data.clear();
+};
+
 // Write a fragment's metadata to memory db. Returns a Promise
 export const writeFragment = (fragment: any) => {
 	return metadata.put(fragment.ownerId, fragment.id, fragment);
