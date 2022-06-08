@@ -1,4 +1,13 @@
 export interface IFragment {
+	id: string;
+	ownerId: string;
+	created: string;
+	updated: string;
+	type: string;
+	size: number | any;
+}
+
+export interface IJestTest {
 	id?: string;
 	ownerId?: string;
 	created?: string;

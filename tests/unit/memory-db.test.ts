@@ -1,8 +1,8 @@
-// Fix this path to point to your project's `memory-db.js` source file
-const MemoryDB = require('../../src/model/data/memory/memory-db');
+/* eslint-disable no-return-await */
+import { MemoryDB } from '../../src/model/data/memory/memory-db';
 
 describe('memory-db', () => {
-	let db;
+	let db: any;
 
 	// Each test will get its own, empty database instance
 	beforeEach(() => {

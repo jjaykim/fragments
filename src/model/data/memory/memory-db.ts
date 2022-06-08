@@ -1,4 +1,4 @@
-// import { IFragment } from '../../../types/fragment';
+import { IFragment } from '../../../types/fragment';
 
 const validateKey = (key: any) => typeof key === 'string';
 
@@ -26,7 +26,7 @@ export class MemoryDB {
 			);
 		}
 
-		const { db } = this.db;
+		const { db } = this;
 		const value = db[primaryKey] && db[primaryKey][secondaryKey];
 		return Promise.resolve(value);
 	}
@@ -37,7 +37,7 @@ export class MemoryDB {
 	 * @param {string} secondaryKey
 	 * @returns Promise
 	 */
-	put(primaryKey: string, secondaryKey: string, value: any) {
+	put(primaryKey: string, secondaryKey: string, value: IFragment | Buffer) {
 		if (!(validateKey(primaryKey) && validateKey(secondaryKey))) {
 			throw new Error(
 				`primaryKey and secondaryKey strings are required, got primaryKey=${primaryKey}, secondaryKey=${secondaryKey}`
@@ -65,7 +65,7 @@ export class MemoryDB {
 
 		// No matter what, we always return an array (even if empty)
 		const { db } = this;
-		const values = db[primaryKey] && Object.values(db[primaryKey]);
+		const values = db[primaryKey] ? Object.values(db[primaryKey]) : [];
 		return Promise.resolve(values);
 	}
 

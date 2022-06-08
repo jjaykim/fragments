@@ -1,4 +1,4 @@
-// import { IFragment } from '../../../types/fragment';
+import { IFragment } from '../../../types/fragment';
 
 import { MemoryDB } from './memory-db';
 
@@ -12,7 +12,7 @@ export const resetFragment = () => {
 };
 
 // Write a fragment's metadata to memory db. Returns a Promise
-export const writeFragment = (fragment: any) => {
+export const writeFragment = (fragment: IFragment) => {
 	return metadata.put(fragment.ownerId, fragment.id, fragment);
 };
 
@@ -36,7 +36,7 @@ export const readFragmentData = (ownerId: string, id: string) => {
 };
 
 // Get a list of fragment ids/objects for the given user from memory db. Returns a Promise
-export const listFragments = async (ownerId: string, expand: boolean = false) => {
+export const listFragments = async (ownerId: string, expand = false) => {
 	const fragments: any[] = await metadata.query(ownerId);
 
 	// If we don't get anything back, or are supposed to give expanded fragments, return

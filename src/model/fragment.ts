@@ -1,11 +1,8 @@
-/* eslint-disable no-return-await */
-// Use https://www.npmjs.com/package/nanoid to create unique IDs
-import { nanoid } from 'nanoid';
-// Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
-import contentType from 'content-type';
+import { nanoid } from 'nanoid'; // Use https://www.npmjs.com/package/nanoid to create unique IDs
+import contentType from 'content-type'; // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 
 // Functions for working with fragment metadata/data using our DB
-import { ContentType, IFragment } from '../types/fragment';
+import { ContentType, IJestTest, IFragment } from '../types/fragment';
 
 import { memory } from './data/index';
 
@@ -29,7 +26,7 @@ export class Fragment implements IFragment {
 		updated = new Date().toISOString(),
 		type = '',
 		size = 0,
-	}: IFragment) {
+	}: IJestTest) {
 		this.id = id || nanoid();
 
 		if (!ownerId || !type) throw new Error('ownerId and type are required');
@@ -52,9 +49,12 @@ export class Fragment implements IFragment {
 	 * @returns Promise<Array<Fragment>>
 	 */
 	static async byUser(ownerId: string, expand: boolean = false) {
-		// TODO
-		const fragments = await memory.listFragments(ownerId, expand);
-		return fragments;
+		try {
+			const fragments = await memory.listFragments(ownerId, expand);
+			return fragments;
+		} catch (err: any) {
+			throw new Error(`Error: ${err}`);
+		}
 	}
 
 	/**
@@ -64,13 +64,10 @@ export class Fragment implements IFragment {
 	 * @returns Promise<Fragment>
 	 */
 	static async byId(ownerId: string, id: string) {
-		// TODO
 		try {
-			const fragment = await memory.readFragment(ownerId, id);
-
-			return fragment;
-		} catch (error: any) {
-			throw new Error(error);
+			return new Fragment(await memory.readFragment(ownerId, id));
+		} catch (err: any) {
+			throw new Error(`Error: ${err}`);
 		}
 	}
 
@@ -80,19 +77,18 @@ export class Fragment implements IFragment {
 	 * @param {string} id fragment's id
 	 * @returns Promise
 	 */
-	static async delete(ownerId: string, id: string) {
-		// TODO
-		await memory.deleteFragment(ownerId, id);
+	static delete(ownerId: string, id: string) {
+		return memory.deleteFragment(ownerId, id);
 	}
 
 	/**
 	 * Saves the current fragment to the database
 	 * @returns Promise
 	 */
-	async save() {
-		// TODO
+	save() {
 		this.updated = new Date().toISOString();
-		await memory.writeFragment(this);
+
+		return memory.writeFragment(this);
 	}
 
 	/**
@@ -100,10 +96,7 @@ export class Fragment implements IFragment {
 	 * @returns Promise<Buffer>
 	 */
 	getData() {
-		// TODO
-		const fragmentData = memory.readFragmentData(this.ownerId, this.id);
-
-		return fragmentData;
+		return memory.readFragmentData(this.ownerId, this.id);
 	}
 
 	/**
@@ -112,15 +105,18 @@ export class Fragment implements IFragment {
 	 * @returns Promise
 	 */
 	async setData(data?: Buffer) {
-		// TODO
 		if (!data) throw new Error('Buffer is required');
 
-		this.updated = new Date().toISOString();
-		this.size = Buffer.byteLength(data);
+		try {
+			this.updated = new Date().toISOString();
+			this.size = Buffer.byteLength(data);
 
-		await memory.writeFragment(this);
+			await memory.writeFragment(this);
 
-		return await memory.writeFragmentData(this.ownerId, this.id, data);
+			return await memory.writeFragmentData(this.ownerId, this.id, data);
+		} catch (err: any) {
+			throw new Error(`Error: ${err}`);
+		}
 	}
 
 	/**
