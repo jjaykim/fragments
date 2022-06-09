@@ -18,7 +18,11 @@ describe('GET /v1/fragments', () => {
 		expect(Array.isArray(res.body.fragments)).toBe(true);
 	});
 
-	// Gets all fragments belonging to the authenticated user, expanded to include a full representations of the fragments' metadata
+	/**
+	 * Gets all fragments belonging to the authenticated user,
+	 * expanded to include a full representations of the fragments' metadata
+	 * */
+
 	test('GET /fragments?expand=1', async () => {
 		const postRes1 = await request(app)
 			.post('/v1/fragments')

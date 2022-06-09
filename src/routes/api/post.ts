@@ -7,7 +7,8 @@ import logger from '../../logger';
 const apiURL = process.env.API_URL as string;
 
 /**
- * Post a fragments for the current user
+ * Creates a new fragment for the current (i.e., authenticated user)
+ *
  */
 export const postFragments = async (req: Request, res: Response) => {
 	const user = req.user as string;
