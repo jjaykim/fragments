@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/jjaykim/fragments.git"
   },
-  "author": "Jungjoo Kim",
+  "author": "Jungjoo Kim <jkim594@myseneca.ca>",
   "license": "UNLICENSED",
   "devDependencies": {
     "@types/compression": "^1.7.2",

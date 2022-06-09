@@ -3,6 +3,7 @@ import contentType from 'content-type'; // Use https://www.npmjs.com/package/con
 
 // Functions for working with fragment metadata/data using our DB
 import { ContentType, IJestTest, IFragment } from '../types/fragment';
+import logger from '../logger';
 
 import { memory } from './data/index';
 
@@ -53,6 +54,7 @@ export class Fragment implements IFragment {
 			const fragments = await memory.listFragments(ownerId, expand);
 			return fragments;
 		} catch (err: any) {
+			logger.error({ err }, 'ERROR! Unable to get all gragments');
 			throw new Error(`Error: ${err}`);
 		}
 	}
@@ -67,6 +69,7 @@ export class Fragment implements IFragment {
 		try {
 			return new Fragment(await memory.readFragment(ownerId, id));
 		} catch (err: any) {
+			logger.error({ err }, 'ERROR! Unable to get a fragment by the given id');
 			throw new Error(`Error: ${err}`);
 		}
 	}
@@ -78,7 +81,12 @@ export class Fragment implements IFragment {
 	 * @returns Promise
 	 */
 	static delete(ownerId: string, id: string) {
-		return memory.deleteFragment(ownerId, id);
+		try {
+			return memory.deleteFragment(ownerId, id);
+		} catch (err: any) {
+			logger.error({ err }, 'ERROR! Unable to delete fragment');
+			throw new Error(`Error: ${err}`);
+		}
 	}
 
 	/**
@@ -86,9 +94,14 @@ export class Fragment implements IFragment {
 	 * @returns Promise
 	 */
 	save() {
-		this.updated = new Date().toISOString();
+		try {
+			this.updated = new Date().toISOString();
 
-		return memory.writeFragment(this);
+			return memory.writeFragment(this);
+		} catch (err: any) {
+			logger.error({ err }, 'ERROR! Unable to save fragment');
+			throw new Error(`Error: ${err}`);
+		}
 	}
 
 	/**
@@ -96,7 +109,12 @@ export class Fragment implements IFragment {
 	 * @returns Promise<Buffer>
 	 */
 	getData() {
-		return memory.readFragmentData(this.ownerId, this.id);
+		try {
+			return memory.readFragmentData(this.ownerId, this.id);
+		} catch (err: any) {
+			logger.error({ err }, 'ERROR! Unable to read fragment data');
+			throw new Error(`Error: ${err}`);
+		}
 	}
 
 	/**
@@ -105,16 +123,17 @@ export class Fragment implements IFragment {
 	 * @returns Promise
 	 */
 	async setData(data?: Buffer) {
-		if (!data) throw new Error('Buffer is required');
+		if (!data) throw new Error('Data is empty');
+		if (!Buffer.isBuffer(data)) throw new Error('Data is not buffer');
 
 		try {
-			this.updated = new Date().toISOString();
 			this.size = Buffer.byteLength(data);
 
-			await memory.writeFragment(this);
+			await this.save();
 
 			return await memory.writeFragmentData(this.ownerId, this.id, data);
 		} catch (err: any) {
+			logger.error({ err }, 'ERROR! Unable to set fragment data');
 			throw new Error(`Error: ${err}`);
 		}
 	}

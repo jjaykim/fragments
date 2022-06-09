@@ -189,6 +189,7 @@ describe('Fragment class', () => {
 
 			const fragment2 = await Fragment.byId('1234', fragment.id);
 			expect(fragment2).toEqual(fragment);
+			expect(() => console.info(data));
 			expect(await fragment2.getData()).toEqual(data);
 		});
 
