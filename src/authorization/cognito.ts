@@ -2,11 +2,12 @@
 // Identity Token provided by Cognito. The token will be
 // parsed from the Authorization header (i.e., Bearer Token).
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
-import passport from 'passport';
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 import dotenv from 'dotenv';
 
 import logger from '../logger';
+
+import { authorize } from './authorize-middleware';
 
 dotenv.config();
 
@@ -56,4 +57,4 @@ export const strategy = new BearerStrategy(async (token: string, done: any) => {
 	}
 });
 
-export const authenticate = () => passport.authenticate('bearer', { session: false });
+export const authenticate = () => authorize('bearer');
