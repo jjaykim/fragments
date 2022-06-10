@@ -15,7 +15,7 @@ export const getFragments = async (req: Request, res: Response) => {
 		logger.debug(`req.query: ${JSON.stringify(req.query)}`);
 
 		// query check
-		const expand = !!(req.query.expand && req.query.expand === '1');
+		const expand = !!(req.query.expand === '1');
 
 		// Depending on expand, get all full fragments or just id
 		const fragment = await Fragment.byUser(req.user as string, expand);
