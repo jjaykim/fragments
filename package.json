@@ -9,7 +9,8 @@
     "coverage": "jest -c jest.config.ts --runInBand --coverage",
     "lint": "eslint --config .eslintrc.json 'src/**/*.{ts,tsx}' 'tests/**/*.{ts,tsx}'",
     "start": "ts-node src/index.ts",
-    "dev": "LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
+    "dev:local": "cp ./env/.env.development ./.env && LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
+    "dev:aws": "cp ./env/.env.production ./.env && LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
     "debug": "LOG_LEVEL=debug nodemon --watch src --exec node --inspect=0.0.0.0:9229 -r ts-node/register src/index.ts "
   },
   "repository": {
