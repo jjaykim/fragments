@@ -24,13 +24,25 @@ By setting [prettierrc](.prettierrc) and [eslintrc](.eslintrc.js), not only do a
 
 ## Script Setup
 
-1. `lint` : finds and notifies you of errors that go against the set rules among the `src/**`.
+1. `test`: run all tests using our [jest.config.js](jest.config.ts) configuration one-by-one.
 
-2. `start` : runs [server.js](src/server.js) via node.
+   > The final `--` means that we'll pass any arguments we receive via the npm invocation to Jest, allowing us to run a single test or set of tests. More on this below.
 
-3. `dev` : runs [server.js](src/server.js) via nodemon.
+2. `test:watch`: watch the files for changes and re-run tests when we update our code (e.g., save a file)
 
-4. `debug` : runs [server.js](src/server.js) via nodemon and starts the [node inspector](https://nodejs.org/en/docs/guides/debugging-getting-started/) on port `9229` as well, so that you can attach a debugger.
+3. `coverage`: by using test [coverage](https://jestjs.io/docs/cli#--coverageboolean), we can see which files and lines of code are being tested, and which ones aren't
+
+4. `lint` : finds and notifies you of errors that go against the set rules among the `src/**`.
+
+5. `start` : runs [server.js](src/server.js) via node.
+
+6. `dev:local` : runs [server.js](src/server.js) via nodemon with `.env.development`. [More Details](.env.example)
+7. `dev:staging`: runs [server.js](src/server.js) via nodemon with `.env.staging`. [More Details](.env.example)
+8. `dev:aws`: runs [server.js](src/server.js) via nodemon with `.env.production`. [More Details](.env.example)
+
+9. `debug` : runs [server.js](src/server.js) via nodemon and starts the [node inspector](https://nodejs.org/en/docs/guides/debugging-getting-started/) on port `9229` as well, so that you can attach a debugger.
+
+[More Details](package.json)
 
 > NOTE: The difference between `node` and `nodemon` is that `nodemon` automatically restarts the server whenever all files in `src/**` are updated.
 
