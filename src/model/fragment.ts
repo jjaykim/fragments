@@ -67,7 +67,11 @@ export class Fragment implements IFragment {
 	 */
 	static async byId(ownerId: string, id: string) {
 		try {
-			return new Fragment(await memory.readFragment(ownerId, id));
+			const fragments: Fragment = await memory.readFragment(ownerId, id);
+
+			if (!fragments) throw new Error('ERROR! Unable to get a fragment by the given id');
+
+			return fragments;
 		} catch (err: any) {
 			logger.error({ err }, 'ERROR! Unable to get a fragment by the given id');
 			throw new Error(`Error: ${err}`);
