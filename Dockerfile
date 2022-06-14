@@ -54,7 +54,7 @@ COPY package*.json ./
 # Only install dependecies without devDependencies
 # used in automated environments such as test platforms, continuous integration, and deployment
 # https://docs.npmjs.com/cli/v8/commands/npm-ci
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # Copy the folder compiled with JavaScript to current working directory
 COPY --from=development /app/dist ./
