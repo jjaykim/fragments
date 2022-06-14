@@ -1,0 +1,21 @@
+.github/
+.vscode/
+coverage/
+node_modules/
+.git/
+.gitignore
+.prettier*
+.eslintrc*
+jest*
+
+# Output of 'npm pack'
+*.tgz
+
+# test
+tests/
+!tests/.htpasswd
+
+# env
+env/
+.env*
+env.jest
