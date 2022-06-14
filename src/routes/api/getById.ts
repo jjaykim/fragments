@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { createSuccessResponse, createErrorResponse } from '../../response';
+import { createErrorResponse } from '../../response';
 import { Fragment } from '../../model/fragment';
 import logger from '../../logger';
 
@@ -19,7 +19,7 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 		const fragmentData = await fragment.getData();
 
 		// Response
-		res.status(200).json(createSuccessResponse({ fragmentData: fragmentData.toString() }));
+		res.send(fragmentData.toString());
 	} catch (err: any) {
 		res.status(404).json(createErrorResponse(404, err.message));
 	}
