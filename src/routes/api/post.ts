@@ -26,7 +26,7 @@ export const postFragments = async (req: Request, res: Response) => {
 			// Store metadata and data
 			await fragment.setData(data);
 
-			logger.debug(`Created a new Fragment: ${fragment}`);
+			logger.debug({ fragment }, 'Created a new Fragment:');
 
 			// Set headers
 			res.setHeader('Content-type', fragment.type);

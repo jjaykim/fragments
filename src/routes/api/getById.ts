@@ -18,6 +18,8 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 		// Get the fragment's data
 		const fragmentData = await fragment.getData();
 
+		logger.debug(`fragment Data:${fragmentData.toString()}`);
+
 		// Response
 		res.send(fragmentData.toString());
 	} catch (err: any) {
