@@ -107,3 +107,5 @@ dist
 coverage
 
 .DS_Store
+
+testing.script.txt

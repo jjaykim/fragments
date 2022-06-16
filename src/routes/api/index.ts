@@ -9,6 +9,7 @@ import { Fragment } from '../../model/fragment';
 import { getFragments } from './get';
 import { postFragments } from './post';
 import { getByIdFragments } from './getById';
+import { getByIdInfoFragments } from './getByIdInfo';
 
 // Create a router on which to mount our API endpoints
 export const apis = express.Router();
@@ -28,18 +29,13 @@ const rawBody = () =>
 	});
 
 /**
- * GET /v1/fragments
+ * GET APIs
  */
 apis.get('/fragments', getFragments);
+apis.get('/fragments/:id', getByIdFragments);
+apis.get('/fragments/:id/info', getByIdInfoFragments);
 
 /**
- * POST /v1/fragments
- * Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
+ * POST APIs
  */
 apis.post('/fragments', rawBody(), postFragments);
-
-/**
- * GET /v1/fragments/:id
- * Gets an authenticated user's fragment data (i.e., raw binary data) with the given id.
- */
-apis.get('/fragments/:id', getByIdFragments);

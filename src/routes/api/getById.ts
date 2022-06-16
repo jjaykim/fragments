@@ -5,6 +5,7 @@ import { Fragment } from '../../model/fragment';
 import logger from '../../logger';
 
 /**
+ * GET /fragments/:id
  * Gets an authenticated user's fragment data with the given id
  * The response includes fragment data.
  */

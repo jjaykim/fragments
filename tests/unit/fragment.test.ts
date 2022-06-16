@@ -10,12 +10,12 @@ const wait = async (ms = 10) =>
 
 const validTypes = [
 	`text/plain`,
+	`text/markdown`,
+	`text/html`,
+	`application/json`,
+
 	/* 
   Currently, only text/plain is supported. Others will be added later.
-
-  `text/markdown`,
-  `text/html`,
-  `application/json`,
   `image/png`,
   `image/jpeg`,
   `image/webp`,
