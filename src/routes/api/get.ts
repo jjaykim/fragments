@@ -5,6 +5,7 @@ import { Fragment } from '../../model/fragment';
 import logger from '../../logger';
 
 /**
+ * GET /fragments/?expand=1
  * Get a list of fragments for the current user.
  * The response includes a fragments array of ids.
  * If `?expand=1`, expanded to include a full representations of the fragments' metadata (not just id).
@@ -19,6 +20,8 @@ export const getFragments = async (req: Request, res: Response) => {
 
 		// Depending on expand, get all full fragments or just id
 		const fragment = await Fragment.byUser(req.user as string, expand);
+
+		logger.debug({ fragment }, 'Get fragments data: ');
 
 		// Response
 		res.status(200).json(

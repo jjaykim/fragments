@@ -69,12 +69,12 @@ export class Fragment implements IFragment {
 		try {
 			const fragments: Fragment = await memory.readFragment(ownerId, id);
 
-			if (!fragments) throw new Error('ERROR! Unable to get a fragment by the given id');
+			if (!fragments) throw new Error('Unable to get a fragment by the given id');
 
 			return fragments;
 		} catch (err: any) {
 			logger.error({ err }, 'ERROR! Unable to get a fragment by the given id');
-			throw new Error(`Error: ${err}`);
+			throw new Error(err);
 		}
 	}
 
@@ -157,7 +157,6 @@ export class Fragment implements IFragment {
 	 * @returns {boolean} true if fragment's type is text/*
 	 */
 	get isText(): boolean {
-		// TODO
 		return this.type.includes('text/');
 	}
 
@@ -166,7 +165,6 @@ export class Fragment implements IFragment {
 	 * @returns {Array<string>} list of supported mime types
 	 */
 	get formats(): Array<string> {
-		// TODO
 		const result: Array<string> = [];
 
 		if (this.isText) result.push(this.mimeType);
@@ -180,7 +178,6 @@ export class Fragment implements IFragment {
 	 * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
 	 */
 	static isSupportedType(value: string): boolean {
-		// TODO
 		if (ContentType.find((ele) => ele === value)) return true;
 
 		return false;
