@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'; // Use https://www.npmjs.com/package/nanoid to 
 import contentType from 'content-type'; // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 
 // Functions for working with fragment metadata/data using our DB
-import { ContentType, IJestTest, IFragment } from '../types/fragment';
+import { ContentType, IFragment, IJestTest } from '../types/fragment';
 import logger from '../logger';
 
 import { memory } from './data/index';

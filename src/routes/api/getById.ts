@@ -19,10 +19,13 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 		// Get the fragment's data
 		const fragmentData = await fragment.getData();
 
-		logger.debug(`fragment Data:${fragmentData.toString()}`);
+		logger.debug(`fragment Data:${fragmentData}`);
+
+		// Set headers
+		res.setHeader('Content-type', fragment.type);
 
 		// Response
-		res.send(fragmentData.toString());
+		res.send(fragmentData);
 	} catch (err: any) {
 		res.status(404).json(createErrorResponse(404, err.message));
 	}
