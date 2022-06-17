@@ -20,5 +20,6 @@ export default async (): Promise<Config.InitialOptions> => {
 		testTimeout: 5000,
 		bail: 1,
 		preset: 'ts-jest',
+		coveragePathIgnorePatterns: ['**/I[A-Z]*.{ts}'],
 	};
 };
