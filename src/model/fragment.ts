@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'; // Use https://www.npmjs.com/package/nanoid to 
 import contentType from 'content-type'; // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 
 // Functions for working with fragment metadata/data using our DB
-import { ContentType, IFragment, IJestTest } from '../types/fragment';
+import { ContentTypes, IFragment, IJestTest, ValidConversionExtensions } from '../types/fragment';
 import logger from '../logger';
 
 import { memory } from './data/index';
@@ -165,11 +165,9 @@ export class Fragment implements IFragment {
 	 * @returns {Array<string>} list of supported mime types
 	 */
 	get formats(): Array<string> {
-		const result: Array<string> = [];
+		const type = ValidConversionExtensions.find((item) => item.type.includes(this.mimeType));
 
-		if (this.isText) result.push(this.mimeType);
-
-		return result;
+		return type ? type.VCE : [];
 	}
 
 	/**
@@ -178,7 +176,7 @@ export class Fragment implements IFragment {
 	 * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
 	 */
 	static isSupportedType(value: string): boolean {
-		if (ContentType.find((ele) => ele === value)) return true;
+		if (ContentTypes.find((ele) => ele === value)) return true;
 
 		return false;
 	}

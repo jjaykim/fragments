@@ -16,7 +16,7 @@ export interface IJestTest {
 	size?: number | any;
 }
 
-export const ContentType = [
+export const ContentTypes = [
 	`text/plain`,
 	'text/plain; charset=utf-8',
 	`text/markdown`,
@@ -26,4 +26,16 @@ export const ContentType = [
 	// `image/jpeg`,
 	// `image/webp`,
 	// `image/gif`,
+];
+
+export const ValidConversionExtensions = [
+	{ type: 'text/plain', VCE: ['text/plain'] },
+	{ type: 'text/markdown', VCE: ['text/html'] },
+	// { type: 'text/markdown', VCE: ['text/markdown', 'text/html', 'text/plain'] },
+	// { type: 'text/html', VCE: ['text/html', 'text/text'] },
+	// { type: 'application/json', VCE: ['application/json', 'text/plain'] },
+	// {
+	// 	type: ['image/png', 'image/jpg', 'image/webp', 'image/gif'],
+	// 	VCE: ['image/png', 'image/jpg', 'image/webp', 'image/gif'],
+	// },
 ];
