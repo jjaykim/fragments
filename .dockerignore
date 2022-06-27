@@ -1,12 +1,16 @@
+# dev tools, config
 .github/
 .vscode/
 coverage/
-node_modules/
 .git/
 .gitignore
 .prettier*
 .eslintrc*
 jest*
+*.md
+
+# ignore the dependencies
+node_modules/ 
 
 # Output of 'npm pack'
 *.tgz
@@ -19,3 +23,6 @@ tests/
 env/
 .env*
 env.jest
+
+# Include the license so we don't break the license/copyright
+!LICENSE.md
