@@ -1,6 +1,6 @@
 # Dockerfile for fragments microservice
 
-# Stage 1: 
+# Stage 1: Convert all of TypeScript files to JavaScript
 # This specifies the parent (or base) image to use as a starting point for our own image.
 # Our image is as close to our development environment as possible
 # Only builds the TS code ready to run in production.
@@ -24,6 +24,7 @@ COPY . .
 RUN npm run build
 
 #####################################################################################
+# Stage 2: Only have JavaScript file
 
 # Copy developemnt to another container as production
 FROM development as production
