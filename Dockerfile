@@ -36,10 +36,13 @@ FROM development as production
 LABEL maintainer="Jay Kim <jkim594@myseneca.ca>"
 LABEL description="Fragments node.js microservice"
 
+# Install dumb-init
+# dumb-init improve signal handling, but it also takes care of other functions of an init system
 RUN apk update && apk add --no-cache dumb-init
 
 # Environment variables become part of the built image, and will persist in any containers run using this image.
 # Define things that will always be different at run-time instead of build-time.
+# Ref: https://github.com/Yelp/dumb-init
 ENV NODE_ENV=production
 
 # We default to use port 8080 in our service
@@ -56,10 +59,12 @@ ENV NPM_CONFIG_COLOR=false
 # Use /app as our working directory
 WORKDIR /app
 
-# Copy cached dependencies from previous stage so we don't have to download
-COPY --chown=node:node --from=development /app /app/
+# Only install dependecies without devDependencies
+# used in automated environments such as test platforms, continuous integration, and deployment
+# https://docs.npmjs.com/cli/v8/commands/npm-ci
+RUN npm ci --omit=dev
 
-# Copy the folder compiled with JavaScript to current working directory
+# Copy the folder compiled with JavaScript to current working directory, change the owner to node user, group
 COPY --chown=node:node --from=development /app/dist ./
 
 # Copy our HTPASSWD file
