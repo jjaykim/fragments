@@ -11,6 +11,9 @@ FROM node:16-alpine@sha256:c785e617c8d7015190c0d41af52cc69be8a16e3d9eb7cb21f0bb5
 # All subsequent commands will be relative to /app
 WORKDIR /app
 
+# Copy files into image, change the owner to node user
+COPY --chown=node:node . /app
+
 # Copy the package.json and package-lock.json files into the working dir (/app)
 # Copy files and folders from build context to a path inside image
 # We could also use a relative path instead of `/app/`, since our WORKDIR is already set to /app
@@ -24,7 +27,7 @@ COPY . .
 RUN npm run build
 
 #####################################################################################
-# Stage 2: Only have JavaScript file
+# Stage 2: Only have JavaScript files
 
 # Copy developemnt to another container as production
 FROM development as production
@@ -62,13 +65,16 @@ COPY --chown=node:node --from=development /app/dist ./
 # Copy our HTPASSWD file
 COPY --chown=node:node ./tests/.htpasswd ./tests/.htpasswd
 
+# Switch user to node before runing the app
+# To prevent any attacks form hackers
 USER node
 
 # Start the container by running our server
-CMD ["dumb-init", "node", "src/index.js"]
+CMD ["dumb-init", "node", "dist/src/index.js"]
 
 # We run our service on port 8080
 EXPOSE 8080
 
+# Define a command to run in order to monitor the health of our container's process
 HEALTHCHECK --interval=10s --timeout=30s --start-period=5s --retries=3 \
-CMD curl --fail localhost:8080 || exit 1
+CMD curl --fail localhost:${PORT} || exit 1
