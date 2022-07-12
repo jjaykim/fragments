@@ -38,7 +38,7 @@ LABEL description="Fragments node.js microservice"
 
 # Install dumb-init
 # dumb-init improve signal handling, but it also takes care of other functions of an init system
-RUN apk update && apk add --no-cache dumb-init
+RUN apk update && apk add --no-cache dumb-init=1.2.5-r1
 
 # Environment variables become part of the built image, and will persist in any containers run using this image.
 # Define things that will always be different at run-time instead of build-time.
