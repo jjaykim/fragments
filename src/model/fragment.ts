@@ -165,11 +165,22 @@ export class Fragment implements IFragment {
 	 * @returns {Array<string>} list of supported mime types
 	 */
 	get formats(): Array<string> {
-		const result: Array<string> = [];
+		switch (this.mimeType) {
+			case 'text/plain':
+				return ['text/plain'];
 
-		if (this.isText) result.push(this.mimeType);
+			case 'text/markdown':
+				return ['text/plain', 'text/markdown', 'text/html'];
 
-		return result;
+			case 'text/html':
+				return ['text/plain', 'text/html'];
+
+			case 'application/json':
+				return ['text/plain', 'application/json'];
+
+			default:
+				return ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
+		}
 	}
 
 	/**
