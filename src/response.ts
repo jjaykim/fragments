@@ -9,7 +9,6 @@
 export const createSuccessResponse = (data?: any) => {
 	return {
 		status: 'ok',
-		// TODO ...
 		...data,
 	};
 };
@@ -26,7 +25,6 @@ export const createSuccessResponse = (data?: any) => {
  * }
  */
 export const createErrorResponse = (code: number, message: string) => {
-	// TODO ...
 	return {
 		status: 'error',
 		error: {
