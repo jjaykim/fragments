@@ -48,7 +48,6 @@ describe('GET /v1/fragments/:id', () => {
 	});
 
 	// Only need to support Markdown fragments (.md) converted to HTML (.html)
-	// TODO: curl로는 되는데 Jest에서 안된다
 	test('Markdown can be converted to HTML', async () => {
 		const postRes = await request(app)
 			.post('/v1/fragments')

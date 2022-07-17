@@ -20,6 +20,7 @@ export default async (): Promise<Config.InitialOptions> => {
 		testTimeout: 5000,
 		bail: 1,
 		preset: 'ts-jest',
-		coveragePathIgnorePatterns: ['**/I[A-Z]*.{ts}'],
+		coveragePathIgnorePatterns: ['/node_modules/', 'package.json', 'package-lock.json'],
+		collectCoverage: true,
 	};
 };

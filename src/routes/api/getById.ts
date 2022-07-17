@@ -11,6 +11,7 @@ import logger from '../../logger';
  * Gets an authenticated user's fragment data with the given id
  * The response includes fragment data.
  */
+// eslint-disable-next-line consistent-return
 export const getByIdFragments = async (req: Request, res: Response) => {
 	try {
 		logger.debug(`owner id and id: ${req.user}, ${req.params.id}`);
@@ -21,39 +22,56 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 		// Get the fragment's data
 		const fragmentData = await fragment.getData();
 
-		logger.debug(`fragment Data:${fragmentData}`);
+		logger.debug(`fragment Data: ${fragmentData}`);
 
 		// Conversions Extensions
 		// Only need to support Markdown fragments (.md) converted to HTML (.html)
 		const convertType = mime.lookup(req.params.id as string);
 		logger.debug(`Convert Type: ${convertType}`);
 
-		if (fragment.type === 'text/markdown' && convertType === 'text/html') {
-			const md = new MarkdownIt();
-			logger.debug('Processing convert to HTML');
+		// check convert is valid
+		if (convertType) {
+			const convertableFormats = fragment.formats;
 
-			logger.debug(md.render('hello'));
+			logger.debug(`mimeType: ${fragment.mimeType}`);
+			logger.debug(`convertable formats:  ${convertableFormats}`);
 
-			// Set headers
-			res.setHeader('Content-type', convertType);
+			if (!convertableFormats.includes(convertType)) {
+				logger.debug('convert type is not include in convertable formats');
+				return res
+					.status(415)
+					.json(
+						createErrorResponse(
+							415,
+							`Fragment extension is not unsupported type OR cannot be converted to ${convertType}`
+						)
+					);
+			}
 
-			// Response
-			res.send(md.render(fragmentData as string));
-		} else if (convertType && !fragment.formats.includes(convertType)) {
-			res
-				.status(415)
-				.json(
-					createErrorResponse(
-						415,
-						`Fragment extension is not unsupported type OR cannot be converted to ${convertType}`
-					)
-				);
-		} else {
+			if (fragment.type === 'text/markdown' && convertType === 'text/html') {
+				const md = new MarkdownIt();
+
+				logger.debug('Processing convert to HTML successfully');
+				logger.debug(md.render(fragmentData.toString()));
+
+				const convertedData = Buffer.from(md.render(fragmentData.toString()));
+
+				// Set headers
+				res.setHeader('Content-type', convertType as string);
+
+				// Response
+				res.status(200).send(convertedData);
+			}
+		}
+		// Send the raw Buffer
+		else {
+			logger.debug(`fragment type in get id: ${fragment.type}`);
+
 			// Set headers
 			res.setHeader('Content-type', fragment.type);
 
 			// Response
-			res.send(fragmentData);
+			res.status(200).send(fragmentData);
 		}
 	} catch (err: any) {
 		res.status(404).json(createErrorResponse(404, err.message));
