@@ -14,10 +14,13 @@ import logger from '../../logger';
 // eslint-disable-next-line consistent-return
 export const getByIdFragments = async (req: Request, res: Response) => {
 	try {
-		logger.debug(`owner id and id: ${req.user}, ${req.params.id}`);
+		const fragmentID = req.params.id.split('.')[0];
+		const ext = req.params.id.split('.')[1];
+
+		logger.debug(`owner id: ${req.user} and fragment id:  ${fragmentID}`);
 
 		// Get a fragment
-		const fragment = await Fragment.byId(req.user as string, req.params.id.split('.')[0]);
+		const fragment = await Fragment.byId(req.user as string, fragmentID);
 
 		// Get the fragment's data
 		const fragmentData = await fragment.getData();
@@ -26,7 +29,9 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 
 		// Conversions Extensions
 		// Only need to support Markdown fragments (.md) converted to HTML (.html)
-		const convertType = mime.lookup(req.params.id as string);
+		logger.debug(`input fragment type: ${ext}`);
+
+		const convertType = mime.lookup(ext);
 		logger.debug(`Convert Type: ${convertType}`);
 
 		// check convert is valid
