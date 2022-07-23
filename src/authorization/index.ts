@@ -1,12 +1,11 @@
-// Prefer Amazon Cognito
 export default () => {
-	// Also allow for an .htpasswd file to be used, but not in production
+	// Prefer Amazon Cognito
 	if (process.env.AWS_COGNITO_POOL_ID && process.env.AWS_COGNITO_CLIENT_ID) {
 		const { strategy } = require('./cognito');
 		const { authenticate } = require('./cognito');
 		return { strategy, authenticate };
 	}
-
+	// Also allow for an .htpasswd file to be used, but not in production
 	if (process.env.HTPASSWD_FILE && process.env.NODE_ENV !== 'production') {
 		const strategy = require('./basic-auth').strategy();
 		const { authenticate } = require('./basic-auth');
