@@ -14,7 +14,8 @@
     "dev:local": "cp ./env/.env.development ./.env && LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
     "dev:staging": "cp ./env/.env.staging ./.env && LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
     "dev:aws": "cp ./env/.env.production ./.env && LOG_LEVEL=debug nodemon --exec ts-node src/index.ts --watch src",
-    "debug": "LOG_LEVEL=debug nodemon --watch src --exec node --inspect=0.0.0.0:9229 -r ts-node/register src/index.ts "
+    "debug": "LOG_LEVEL=debug nodemon --watch src --exec node --inspect=0.0.0.0:9229 -r ts-node/register src/index.ts ",
+    "test:integration": "hurl --test --glob \"tests/integration/**/*.hurl\""
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "author": "Jungjoo Kim <jkim594@myseneca.ca>",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@orangeopensource/hurl": "^1.6.5",
     "@types/compression": "^1.7.2",
     "@types/content-type": "^1.1.5",
     "@types/cors": "^2.8.12",
