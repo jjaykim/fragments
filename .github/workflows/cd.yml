@@ -97,8 +97,8 @@ jobs:
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           region: us-east-1
           # Make sure this matches your Elastic Beanstalk application name
-          application_name: fragments
+          application_name: ccp-fragments
           # Make sure this matches your Elastic Beanstalk environment name
-          environment_name: fragments-env
+          environment_name: Ccpfragments-env-1
           version_label: ${{ env.VERSION }}
           deployment_package: ${{ env.COMPOSE_FILE }}
