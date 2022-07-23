@@ -7,7 +7,12 @@ services:
     ports:
       - '80:8080'
     environment:
-      - NODE_ENV=development
-      - HTPASSWD_FILE=tests/.htpasswd
+      - NODE_ENV=production
       # Our API will be running on http://localhost:8080
       - API_URL=http://localhost:8080
+      # Use whatever LOG_LEVEL is set to, or `info` as a default if not set
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      # Allow the following variables to be forwarded into the container from the env if set
+      - AWS_COGNITO_POOL_ID
+      - AWS_COGNITO_CLIENT_ID
+      - HTPASSWD
