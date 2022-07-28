@@ -67,6 +67,7 @@ describe('POST /v1/fragments', () => {
 			.set('Content-Type', 'text/plain')
 			.send(data);
 		expect(res.statusCode).toBe(201);
+		expect(res.headers['content-type']).toContain('text/plain');
 		expect(res.headers.location).toEqual(
 			`${process.env.API_URL}/v1/fragments/${JSON.parse(res.text).fragment.id}`
 		);
