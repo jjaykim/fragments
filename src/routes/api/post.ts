@@ -30,7 +30,7 @@ export const postFragments = async (req: Request, res: Response) => {
 
 			// Set headers
 			res.setHeader('Content-type', fragment.type);
-			res.setHeader('Location', `${apiURL}/v1/fragments/${fragment.id}`);
+			res.setHeader('Location', `${apiURL}/v1/fragments/${fragment.id}` as string);
 
 			// Return successful response
 			res.status(201).json(

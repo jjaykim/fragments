@@ -1,4 +1,7 @@
 # docker-compose.yml
+# For Production mode
+# Will use './src/authorization/cognito.ts' modules
+
 services:
   fragments:
     # dnglglmm/fragments:latest

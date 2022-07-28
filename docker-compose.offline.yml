@@ -1,4 +1,6 @@
 # docker-compose.offline.yml
+# For Development mode
+# Will use './src/authorization/basic-auth.ts' modules
 
 services:
   # Fragments microservice API server
