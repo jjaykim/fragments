@@ -10,6 +10,7 @@ import { getFragments } from './get';
 import { postFragments } from './post';
 import { getByIdFragments } from './getById';
 import { getByIdInfoFragments } from './getByIdInfo';
+import { deleteFragments } from './delete';
 
 // Create a router on which to mount our API endpoints
 export const apis = express.Router();
@@ -39,3 +40,8 @@ apis.get('/fragments/:id/info', getByIdInfoFragments);
  * POST APIs
  */
 apis.post('/fragments', rawBody(), postFragments);
+
+/**
+ * DELETE APIs
+ */
+apis.delete('/fragments/:id', deleteFragments);
