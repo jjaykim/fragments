@@ -18,11 +18,7 @@ export const writeFragment = (fragment: IFragment) => {
 
 // Read a fragment's metadata from memory db. Returns a Promise
 export const readFragment = (ownerId: string, id: string) => {
-	try {
-		return metadata.get(ownerId, id);
-	} catch (error: any) {
-		throw new Error(error);
-	}
+	return metadata.get(ownerId, id);
 };
 
 // Write a fragment's data to memory db. Returns a Promise

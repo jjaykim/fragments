@@ -61,6 +61,7 @@
 			{
 				"allow": ["warn", "info", "group", "groupEnd", "error", "groupCollapsed"]
 			}
-		]
+		],
+		"consistent-return": "off"
 	}
 }
