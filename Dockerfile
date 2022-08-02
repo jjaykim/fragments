@@ -20,10 +20,7 @@ COPY --chown=node:node . /app
 COPY package*.json .
 
 # Install node dependencies defined in package-lock.json
-# RUN npm install
-RUN npm ci --only=production \
-    && npm uninstall sharp \
-    && npm install --platform=linuxmusl sharp@0.30.3
+RUN npm install
 
 COPY . .
 
