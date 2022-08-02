@@ -82,17 +82,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-          cache: 'npm'
       - name: Install Hurl
         run: |
           curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/1.6.1/hurl_1.6.1_amd64.deb
           sudo dpkg -i hurl_1.6.1_amd64.deb
       - name: Build Containers
-        run: docker-compose -f docker-compose.offline.yml up --build -d
+        run: docker-compose -f docker-compose.offline.yml up -d
       - name: Setup Local AWS Resources
         run: ./scripts/local-aws-setup.sh
       - name: Run Hurl Tests
