@@ -17,13 +17,14 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 		const fragmentID = req.params.id.split('.')[0];
 		const ext = req.params.id.split('.')[1];
 
-		logger.debug(`owner id: ${req.user} and fragment id:  ${fragmentID}`);
+		logger.debug({ body: req.body }, 'GET /fragments/:id');
+		logger.debug(`owner id: ${req.user} and fragment id:  ${fragmentID} and ext: ${ext || 'none'}`);
 
 		// Get a fragment
-		const fragment = await Fragment.byId(req.user as string, fragmentID);
+		const fragmentById = await Fragment.byId(req.user as string, fragmentID);
 
 		// Get the fragment's data
-		const fragmentData = await fragment.getData();
+		const fragmentData = await fragmentById.getData();
 
 		logger.debug(`fragment Data: ${fragmentData}`);
 
@@ -36,9 +37,9 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 
 		// check convert is valid
 		if (convertType) {
-			const convertableFormats = fragment.formats;
+			const convertableFormats = fragmentById.formats;
 
-			logger.debug(`mimeType: ${fragment.mimeType}`);
+			logger.debug(`mimeType: ${fragmentById.mimeType}`);
 			logger.debug(`convertable formats:  ${convertableFormats}`);
 
 			if (!convertableFormats.includes(convertType)) {
@@ -53,7 +54,7 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 					);
 			}
 
-			if (fragment.type === 'text/markdown' && convertType === 'text/html') {
+			if (fragmentById.type === 'text/markdown' && convertType === 'text/html') {
 				const md = new MarkdownIt();
 
 				logger.debug('Processing convert to HTML successfully');
@@ -70,15 +71,16 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 		}
 		// Send the raw Buffer
 		else {
-			logger.debug(`fragment type in get id: ${fragment.type}`);
+			logger.debug(`fragment type in get id: ${fragmentById.type}`);
 
 			// Set headers
-			res.setHeader('Content-type', fragment.type);
+			res.setHeader('Content-type', fragmentById.type);
 
 			// Response
 			res.status(200).send(fragmentData);
 		}
 	} catch (err: any) {
+		logger.debug(`GET /fragments/:id ERROR /n ${err}`);
 		res.status(404).json(createErrorResponse(404, err.message));
 	}
 };
