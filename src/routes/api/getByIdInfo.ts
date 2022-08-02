@@ -12,6 +12,7 @@ import logger from '../../logger';
 
 export const getByIdInfoFragments = async (req: Request, res: Response) => {
 	try {
+		logger.debug({ body: req.body }, 'GET /fragments/:id/info');
 		logger.debug(`owner id and id: ${req.user}, ${req.params.id}`);
 
 		// Get a fragment

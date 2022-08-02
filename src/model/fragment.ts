@@ -67,9 +67,13 @@ export class Fragment implements IFragment {
 	 */
 	static async byId(ownerId: string, id: string) {
 		try {
-			const fragments: Fragment = await memory.readFragment(ownerId, id);
-
-			return fragments;
+			const fragment = await memory.readFragment(ownerId, id);
+			if (fragment) {
+				if (fragment instanceof Fragment === false) {
+					return new Fragment(fragment);
+				}
+				return fragment;
+			}
 		} catch (err: any) {
 			logger.error({ err }, 'ERROR! Unable to get a fragment by the given id');
 			throw new Error(err);
@@ -110,9 +114,9 @@ export class Fragment implements IFragment {
 	 * Gets the fragment's data from the database
 	 * @returns Promise<Buffer>
 	 */
-	getData() {
+	async getData() {
 		try {
-			return memory.readFragmentData(this.ownerId, this.id);
+			return await memory.readFragmentData(this.ownerId, this.id);
 		} catch (err: any) {
 			logger.error({ err }, 'ERROR! Unable to read fragment data');
 			throw new Error(`Error: ${err}`);
