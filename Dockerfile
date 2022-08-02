@@ -17,7 +17,7 @@ COPY --chown=node:node . /app
 # Copy the package.json and package-lock.json files into the working dir (/app)
 # Copy files and folders from build context to a path inside image
 # We could also use a relative path instead of `/app/`, since our WORKDIR is already set to /app
-COPY package*.json .
+COPY package*.json ./
 
 # Install node dependencies defined in package-lock.json
 RUN npm install
