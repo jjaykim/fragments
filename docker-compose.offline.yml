@@ -9,7 +9,8 @@ services:
     init: true
     # Build the Docker Image using the Dockerfile
     # and current directory as the build context
-    build: .
+    # build: .
+    image: fragments_fragments
     # Environment variables to use
     environment:
       - NODE_ENV=development
