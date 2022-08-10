@@ -9,11 +9,14 @@ import { Fragment } from '../../model/fragment';
 
 export const deleteFragments = async (req: Request, res: Response) => {
 	try {
+		logger.debug({ body: req.body }, '==== DELETE /fragments/id ====');
+
 		const fragmentID = req.params.id;
 		logger.debug(`owner id: ${req.user} and fragment id:  ${fragmentID}`);
 
 		const fragment = await Fragment.byId(req.user as string, fragmentID);
 
+		logger.debug('==== Successfully Deleted ====');
 		// If the id is not found, returns an HTTP 404 with an appropriate error message.
 		if (!fragment) {
 			return res.status(404).json(createErrorResponse(404, 'Id not found'));

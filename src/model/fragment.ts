@@ -1,5 +1,8 @@
 import { nanoid } from 'nanoid'; // Use https://www.npmjs.com/package/nanoid to create unique IDs
 import contentType from 'content-type'; // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
+import MarkdownIt from 'markdown-it';
+import sharp from 'sharp';
+import mime from 'mime-types';
 
 // Functions for working with fragment metadata/data using our DB
 import { ContentTypes, IFragment, IJestTest, ValidConversionExtensions } from '../types/fragment';
@@ -169,7 +172,7 @@ export class Fragment implements IFragment {
 	get formats(): Array<string> {
 		const type = ValidConversionExtensions.find((item) => item.type.includes(this.mimeType));
 
-		return type ? type.VCE : [];
+		return type ? type.extensions : [];
 	}
 
 	/**
@@ -181,5 +184,64 @@ export class Fragment implements IFragment {
 		if (ContentTypes.find((ele) => ele === value)) return true;
 
 		return false;
+	}
+
+	/**
+	 * Returns the data converted to the desired type
+	 * @param {Buffer} data fragment data to be converted
+	 * @param {string} extension the type extension you want to convert to (desired type)
+	 * @returns {Buffer, String} converted fragment data
+	 */
+	async convertType(
+		data: any,
+		extension: string
+	): Promise<false | { convertedResult: any; convertedType: string }> {
+		const inputType = mime.lookup(extension);
+
+		const convertableFormats = this.formats;
+
+		logger.debug(`This fragment's Type: ${this.type}`);
+		logger.debug(`This fragment's mimeType: ${this.mimeType}`);
+		logger.debug(`This fragment's convertable formats: ${convertableFormats}`);
+
+		if (inputType === false || !convertableFormats.includes(inputType)) {
+			logger.warn('Cannot convert fragment to this type');
+			return false;
+		}
+
+		let convertedResult = data;
+
+		if (this.mimeType !== inputType) {
+			const md = new MarkdownIt();
+
+			switch (inputType) {
+				case 'text/html':
+					if (this.mimeType === 'text/markdown') {
+						convertedResult = md.render(data.toString());
+						convertedResult = Buffer.from(convertedResult);
+					}
+					break;
+
+				case 'image/jpeg':
+					convertedResult = await sharp(data).jpeg().toBuffer();
+					break;
+
+				case 'image/png':
+					convertedResult = await sharp(data).png().toBuffer();
+					break;
+
+				case 'image/webp':
+					convertedResult = await sharp(data).webp().toBuffer();
+					break;
+
+				case 'image/gif':
+					convertedResult = await sharp(data).gif().toBuffer();
+					break;
+
+				default:
+					break;
+			}
+		}
+		return { convertedResult, convertedType: inputType };
 	}
 }

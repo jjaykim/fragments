@@ -7,7 +7,7 @@ import { Fragment } from '../../model/fragment';
 import logger from '../../logger';
 
 export const putFragments = async (req: Request, res: Response) => {
-	logger.debug({ body: req.body }, 'PUT /fragments/:id');
+	logger.debug({ body: req.body }, '==== PUT /fragments/:id ====');
 
 	if (!Buffer.isBuffer(req.body)) {
 		return res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
@@ -40,7 +40,7 @@ export const putFragments = async (req: Request, res: Response) => {
 		await newFragment.save();
 		await newFragment.setData(req.body);
 
-		logger.debug({ newFragment }, 'Fragment updated');
+		logger.debug({ newFragment }, '==== Successfully Fragment updated ====');
 
 		res.set('Content-Type', newFragment.type);
 		res.set('Location', `${process.env.API_URL}/v1/fragments/${newFragment.id}`);

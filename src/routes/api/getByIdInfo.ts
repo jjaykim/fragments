@@ -9,10 +9,9 @@ import logger from '../../logger';
  * Allows the authenticated user to get (i.e., read) the metadata for one of their existing fragments with the specified id.
  * If no such fragment exists, returns an HTTP 404 with an appropriate error message.
  */
-
 export const getByIdInfoFragments = async (req: Request, res: Response) => {
 	try {
-		logger.debug({ body: req.body }, 'GET /fragments/:id/info');
+		logger.debug({ query: JSON.stringify(req.query) }, '==== GET /fragments/:id/info ====');
 		logger.debug(`owner id and id: ${req.user}, ${req.params.id}`);
 
 		// Get a fragment
@@ -23,7 +22,7 @@ export const getByIdInfoFragments = async (req: Request, res: Response) => {
 			return res.status(404).json(createErrorResponse(404, 'No fragment with this id'));
 		}
 
-		logger.debug({ fragment }, "Get fragment's info: ");
+		logger.debug({ fragment }, "==== Successfully Get fragment's info ====");
 
 		// Response
 		res.json(

@@ -15,7 +15,7 @@ export const postFragments = async (req: Request, res: Response) => {
 	const data = req.body;
 	const type: string = req.headers['content-type'] as string;
 
-	logger.debug(`Post: ${req.body}`);
+	logger.debug({ post: req.body }, '==== POST /fragments ====');
 
 	// Check the Content-Type is supported or not
 	if (Fragment.isSupportedType(type)) {
@@ -26,7 +26,7 @@ export const postFragments = async (req: Request, res: Response) => {
 			// Store metadata and data
 			await fragment.setData(data);
 
-			logger.debug({ fragment }, 'Created a new Fragment:');
+			logger.debug({ fragment }, '==== Successfully Created a new Fragment ====');
 
 			// Set headers
 			res.setHeader('Content-type', fragment.type);

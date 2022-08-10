@@ -13,6 +13,8 @@ import logger from '../../logger';
  */
 export const getFragments = async (req: Request, res: Response) => {
 	try {
+		logger.debug({ query: JSON.stringify(req.query) }, '==== GET /fragments ====');
+
 		logger.debug(`req.query: ${JSON.stringify(req.query)}`);
 
 		// query check
@@ -21,7 +23,7 @@ export const getFragments = async (req: Request, res: Response) => {
 		// Depending on expand, get all full fragments or just id
 		const fragment = await Fragment.byUser(req.user as string, expand);
 
-		logger.debug({ fragment }, 'Get fragments data: ');
+		logger.debug({ fragment }, '==== Successfully Get fragments data ====');
 
 		// Response
 		res.status(200).json(
