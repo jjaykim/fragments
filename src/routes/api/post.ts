@@ -15,7 +15,7 @@ export const postFragments = async (req: Request, res: Response) => {
 	const data = req.body;
 	const type: string = req.headers['content-type'] as string;
 
-	logger.debug({ post: req.body }, '==== POST /fragments ====');
+	logger.debug('==== POST /fragments ====');
 
 	// Check the Content-Type is supported or not
 	if (Fragment.isSupportedType(type)) {

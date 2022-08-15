@@ -203,6 +203,7 @@ export class Fragment implements IFragment {
 		logger.debug(`This fragment's Type: ${this.type}`);
 		logger.debug(`This fragment's mimeType: ${this.mimeType}`);
 		logger.debug(`This fragment's convertable formats: ${convertableFormats}`);
+		logger.debug(`This fragment's input type: ${inputType}`);
 
 		if (inputType === false || !convertableFormats.includes(inputType)) {
 			logger.warn('Cannot convert fragment to this type');
@@ -242,6 +243,7 @@ export class Fragment implements IFragment {
 					break;
 			}
 		}
+
 		return { convertedResult, convertedType: inputType };
 	}
 }

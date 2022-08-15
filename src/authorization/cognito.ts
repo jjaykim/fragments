@@ -47,7 +47,6 @@ export const strategy = new BearerStrategy(async (token: string, done: any) => {
 	try {
 		// Verify this JWT
 		const user = await jwtVerifier.verify(token);
-		logger.debug({ user }, 'verified user token');
 
 		// Create a user, but only bother with their email
 		done(null, user.email);

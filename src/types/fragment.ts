@@ -31,7 +31,7 @@ export const ContentTypes = [
 export const ValidConversionExtensions = [
 	{ type: 'text/plain', extensions: ['text/plain'] },
 	{ type: 'text/markdown', extensions: ['text/markdown', 'text/html', 'text/plain'] },
-	{ type: 'text/html', extensions: ['text/html', 'text/text'] },
+	{ type: 'text/html', extensions: ['text/html', 'text/plain'] },
 	{ type: 'application/json', extensions: ['application/json', 'text/plain'] },
 	{
 		type: ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],

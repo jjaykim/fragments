@@ -1,8 +1,12 @@
+import fs from 'fs';
+
 import request from 'supertest';
 
 import app from '../../src/app';
 
 describe('POST /v1/fragments', () => {
+	const testFilePath = `${__dirname}/assets/myEmoji.png`;
+
 	// If the request is missing the Authorization header, it should be forbidden
 	test('unauthenticated requests are denied', () => request(app).post('/v1/fragments').expect(401));
 
@@ -59,6 +63,18 @@ describe('POST /v1/fragments', () => {
 		expect(body.fragment.type).toContain('text/plain');
 	});
 
+	// Post PNG image fragment (.png)
+	test('post the image fragment', async () => {
+		const res = await request(app)
+			.post('/v1/fragments')
+			.auth('user1@email.com', 'password1')
+			.set('Content-Type', 'image/png')
+			.send(fs.readFileSync(testFilePath));
+
+		expect(res.statusCode).toBe(201);
+	});
+
+	// responses include a Location header with a URL to GET the fragment
 	test('response include a Location header with a URL to GET the fragment', async () => {
 		const data = Buffer.from('hello');
 		const res = await request(app)

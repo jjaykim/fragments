@@ -23,7 +23,7 @@ export const getFragments = async (req: Request, res: Response) => {
 		// Depending on expand, get all full fragments or just id
 		const fragment = await Fragment.byUser(req.user as string, expand);
 
-		logger.debug({ fragment }, '==== Successfully Get fragments data ====');
+		logger.debug('==== Successfully Get fragments data ====');
 
 		// Response
 		res.status(200).json(
