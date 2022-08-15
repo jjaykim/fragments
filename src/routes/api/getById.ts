@@ -33,7 +33,7 @@ export const getByIdFragments = async (req: Request, res: Response) => {
 		const conversionExtension = path.extname(req.params.id);
 
 		// check convert is valid
-		if (conversionExtension !== '.') {
+		if (conversionExtension) {
 			logger.debug(`Convert Type: ${conversionExtension}`);
 			// converting other formats to plain text means only mimeType change, we don't need data change
 			const { convertedResult, convertedType } = await fragmentById.convertType(
