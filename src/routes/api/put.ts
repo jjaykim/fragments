@@ -7,7 +7,7 @@ import { Fragment } from '../../model/fragment';
 import logger from '../../logger';
 
 export const putFragments = async (req: Request, res: Response) => {
-	logger.debug({ body: req.body }, 'PUT /fragments/:id');
+	logger.debug({ body: req.body }, '==== PUT /fragments/:id ====');
 
 	if (!Buffer.isBuffer(req.body)) {
 		return res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
@@ -31,24 +31,36 @@ export const putFragments = async (req: Request, res: Response) => {
 				.json(createErrorResponse(400, "Content type doesn't match the existing fragment's type"));
 		}
 
-		const newFragment = new Fragment({
-			ownerId: req.user as string,
-			id: fragmentID,
-			created: existingFragment.created,
-			type: req.get('Content-Type'),
-		});
-		await newFragment.save();
-		await newFragment.setData(req.body);
+		existingFragment.updated = new Date();
+		await existingFragment.setData(req.body);
 
-		logger.debug({ newFragment }, 'Fragment updated');
+		// const newFragment = new Fragment({
+		// 	ownerId: req.user as string,
+		// 	id: fragmentID,
+		// 	created: existingFragment.created,
+		// 	type: req.get('Content-Type'),
+		// });
+		// await newFragment.save();
+		// await newFragment.setData(req.body);
 
-		res.set('Content-Type', newFragment.type);
-		res.set('Location', `${process.env.API_URL}/v1/fragments/${newFragment.id}`);
+		logger.debug({ existingFragment }, '==== Successfully Fragment updated ====');
+
+		res.set('Content-Type', existingFragment.type);
+		res.set('Location', `${process.env.API_URL}/v1/fragments/${existingFragment.id}`);
 		res.status(201).json(
 			createSuccessResponse({
-				fragment: newFragment,
+				fragment: existingFragment,
 			})
 		);
+		// logger.debug({ newFragment }, '==== Successfully Fragment updated ====');
+
+		// res.set('Content-Type', newFragment.type);
+		// res.set('Location', `${process.env.API_URL}/v1/fragments/${newFragment.id}`);
+		// res.status(201).json(
+		// 	createSuccessResponse({
+		// 		fragment: newFragment,
+		// 	})
+		// );
 	} catch (err: any) {
 		res.status(500).json(createErrorResponse(500, err));
 	}

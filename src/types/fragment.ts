@@ -22,20 +22,19 @@ export const ContentTypes = [
 	`text/markdown`,
 	`text/html`,
 	`application/json`,
-	// `image/png`,
-	// `image/jpeg`,
-	// `image/webp`,
-	// `image/gif`,
+	`image/png`,
+	`image/jpeg`,
+	`image/webp`,
+	`image/gif`,
 ];
 
 export const ValidConversionExtensions = [
-	{ type: 'text/plain', VCE: ['text/plain'] },
-	{ type: 'text/markdown', VCE: ['text/html'] },
-	// { type: 'text/markdown', VCE: ['text/markdown', 'text/html', 'text/plain'] },
-	// { type: 'text/html', VCE: ['text/html', 'text/text'] },
-	// { type: 'application/json', VCE: ['application/json', 'text/plain'] },
-	// {
-	// 	type: ['image/png', 'image/jpg', 'image/webp', 'image/gif'],
-	// 	VCE: ['image/png', 'image/jpg', 'image/webp', 'image/gif'],
-	// },
+	{ type: 'text/plain', extensions: ['text/plain'] },
+	{ type: 'text/markdown', extensions: ['text/markdown', 'text/html', 'text/plain'] },
+	{ type: 'text/html', extensions: ['text/html', 'text/plain'] },
+	{ type: 'application/json', extensions: ['application/json', 'text/plain'] },
+	{
+		type: ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],
+		extensions: ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],
+	},
 ];
